@@ -49,22 +49,18 @@ categorias = ("Hístoria", "Ciências-Tecnologicas", "Literatura", "Artes", "Ci�
 
 #2 
 
-Livro = {
-"codigo":"codigo",
-"Título":"Titulo",
-"Autor":"Autor",
-"AnoPubli":"AnoPubli",
-"Preço":"Preco",
-"Exemplares":"Exemplares"
-}
 
 #3
 
-Biblioteca = [[1, "historia para noobs", "Moysa", 1997],[6, "geografia para noobs", "emmanuelle", 2345]]
+Biblioteca = []
 
 #4 código, título, autor, ano de publicação, preço e quantidade
 
+
+
+  
 def receberlivr():
+
     while True:
         try:
             codigo = input("Digite o código do livro : ")
@@ -79,10 +75,37 @@ def receberlivr():
     autor = input("Digite o nome do autor : ")
     while True:
         try:
-            anopubli = input("Digite o código do livro : ")
+            anopubli = input("Digite o ano da publicação do livro : ")
             anopubli = int(anopubli)    
-            break
+            if anopubli <= 1900 or anopubli > 2025:
+                print("Erro ao cadastrar Ano da publicação! Tente novamente. protocolo #3 : Valor Irreal!")
+            else:
+                break
         except ValueError:
             print("Erro ao cadastrar Ano da publicação! Tente novamente. protocolo #2 : Valor não númerico!")
+    while True:
+        try:
+            preco = input("Digite o preco do livro : ")
+            preco = preco.replace(",",".")
+            preco = float(preco)    
+            if preco < 5:
+                print("Erro ao cadastrar preco! Tente novamente. protocolo #4 : preço menor que 5R$!")
+            else:
+                break
+        except ValueError:
+            print("Erro ao cadastrar preco! Tente novamente. protocolo #2 : Valor não númerico!")
+    while True:
+        try:
+            exemplares = input("Digite a quantidade de exemplares do livro : ")
+            exemplares = int(exemplares)    
+            break
+        except ValueError:
+            print("Erro ao cadastrar Exemplares! Tente novamente. protocolo #2 : Valor não númerico!")
     
+    Biblioteca.append([codigo, titulo, autor, anopubli, preco, exemplares])
+
+
+
+
 receberlivr()
+print(Biblioteca)
