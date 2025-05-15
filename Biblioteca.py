@@ -49,10 +49,22 @@ categorias = ("Hístoria", "Ciências-Tecnologicas", "Literatura", "Artes", "Ci�
 
 #2 
 
+livro = {
+    "Código": 1,
+    "Título": "Don Quixote",
+    "Autor": "Sancho",
+    "Ano de Publicação": 1899,
+    "Preço": 10,
+    "Quantidade": 1
+}
 
 #3
 
 Biblioteca = []
+
+#3.1 
+
+Livroscomprados = []
 
 #4 código, título, autor, ano de publicação, preço e quantidade
 
@@ -67,6 +79,8 @@ def receberlivr():
             codigo = int(codigo)    
             if any(avaliador[0] == codigo for avaliador in Biblioteca):
                 print("Erro ao cadastrar código! Tente novamente.  protocolo #1 : Valor já existente!")
+            elif any(avaliador[0] == 0 for avaliador in Biblioteca):
+                print("Erro ao cadastrar Código! Tente novamente. protocolo #3 : Valor Invalido!")
             else:
                 break
         except ValueError:
@@ -77,8 +91,8 @@ def receberlivr():
         try:
             anopubli = input("Digite o ano da publicação do livro : ")
             anopubli = int(anopubli)    
-            if anopubli <= 1900 or anopubli > 2025:
-                print("Erro ao cadastrar Ano da publicação! Tente novamente. protocolo #3 : Valor Irreal!")
+            if anopubli <= 1850 or anopubli > 2025:
+                print("Erro ao cadastrar Ano da publicação! Tente novamente. protocolo #3 : Valor Invalido!")
             else:
                 break
         except ValueError:
@@ -89,7 +103,9 @@ def receberlivr():
             preco = preco.replace(",",".")
             preco = float(preco)    
             if preco < 5:
-                print("Erro ao cadastrar preco! Tente novamente. protocolo #4 : preço menor que 5R$!")
+                print("Erro ao cadastrar preco! Tente novamente. protocolo #4.1 : preço muito baixo!")
+            elif preco > 100:
+                print("Erro ao cadastrar preco! Tente novamente. protocolo #4.2 : preço muito alto!")
             else:
                 break
         except ValueError:
@@ -102,10 +118,48 @@ def receberlivr():
         except ValueError:
             print("Erro ao cadastrar Exemplares! Tente novamente. protocolo #2 : Valor não númerico!")
     
-    Biblioteca.append([codigo, titulo, autor, anopubli, preco, exemplares])
+    livro = {
+        "Código": codigo,
+        "Título": titulo,
+        "Autor": autor,
+        "Ano de Publicação": anopubli,
+        "Preço": preco,
+        "Quantidade": exemplares
+    }
 
+    Biblioteca.append(livro)
 
+# 4.5 Protocolos
+
+def showprotcol():
+    print('''Protocolo #1 : Valores já existentes 
+Protocolo #2 : Valor não númerico
+Protocolo #3 : Valor invalido
+Protocolo #4 : Relacionado a preços
+''')
+
+# 5. Criar uma função que receba o código de um livro e a quantidade comprada
+# e que calcule o valor a ser pago por esse livro.
+
+def compraritens():
+    if not Biblioteca:
+        print("A biblioteca está vazia.")
+        return
+    
+    print("\n--- Livros disponíveis ---")
+    for i, livro in enumerate(Biblioteca, start=1):
+        print(f"{i}. Código : {livro['Código']} | "
+            f"Título : {livro['Título']} | "
+            f"Autor : {livro['Autor']} | "
+            f"Ano : {livro['Ano de Publicação']} | "
+            f"Preço : R${livro['Preço']:.2f} | "
+            f"Quantidade : {livro['Quantidade']}")
+        while True:
+            compliv = input("Gostaia de comprar algum/outro livro? 1 - Sim / 0 - Não : ")
+            if compliv == 1:
+                seleclivro = int(input("Insira o Código do livro que você vai comprar : "))
+                if any
 
 
 receberlivr()
-print(Biblioteca)
+compraritens()
