@@ -77,9 +77,9 @@ def receberlivr():
         try:
             codigo = input("Digite o código do livro : ")
             codigo = int(codigo)    
-            if any(avaliador[0] == codigo for avaliador in Biblioteca):
+            if any(avaliador["Código"] == codigo for avaliador in Biblioteca):
                 print("Erro ao cadastrar código! Tente novamente.  protocolo #1 : Valor já existente!")
-            elif any(avaliador[0] == 0 for avaliador in Biblioteca):
+            elif codigo == 0:
                 print("Erro ao cadastrar Código! Tente novamente. protocolo #3 : Valor Invalido!")
             else:
                 break
@@ -142,6 +142,7 @@ Protocolo #4 : Relacionado a preços
 # e que calcule o valor a ser pago por esse livro.
 
 def compraritens():
+    indicecompra = 0
     if not Biblioteca:
         print("A biblioteca está vazia.")
         return
@@ -155,11 +156,40 @@ def compraritens():
             f"Preço : R${livro['Preço']:.2f} | "
             f"Quantidade : {livro['Quantidade']}")
         while True:
-            compliv = input("Gostaia de comprar algum/outro livro? 1 - Sim / 0 - Não : ")
+            compliv = input("Gostaria de comprar algum/outro livro? 1 - Sim / 0 - Não : ")
             if compliv == 1:
                 seleclivro = int(input("Insira o Código do livro que você vai comprar : "))
-                if any
+                for i, sublist in enumerate(Biblioteca):
+                    if sublist[0] == seleclivro:
+                        indicecompra = i
+                        break
+                    else:
+                        print("Código não encontrado!")
+                confirmcomp = int(print(f"Você confirma a comprar do item {Biblioteca[indicecompra]}? 1 - Sim / 0 - Não"))
+                if confirmcomp == "1":
+                    Livroscomprados.append(Biblioteca[indicecompra])
+                    del Biblioteca[indicecompra]
+                else:
+                    continue
+            else:
+                break
+                        
+
+                    
 
 
 receberlivr()
+receberlivr()
 compraritens()
+
+
+# array = [[1, "joao", "Hahah"],[2, "RAghhh", "Roxo"]]
+
+# codask = int(input("Digite o códogo que procura"))
+
+# for i, sublist in enumerate(array):
+#     if sublist[0] == codask:
+#         idx = i
+#         break
+
+# print(idx)
