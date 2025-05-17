@@ -55,7 +55,7 @@ livro = {
     "Autor": "Sancho",
     "Ano de Publicação": 1899,
     "Preço": 10,
-    "Quantidade": 1
+    "exemplares": 1
 }
 
 #3
@@ -124,7 +124,7 @@ def receberlivr():
         "Autor": autor,
         "Ano de Publicação": anopubli,
         "Preço": preco,
-        "Quantidade": exemplares
+        "exemplares": exemplares
     }
 
     Biblioteca.append(livro)
@@ -142,7 +142,7 @@ Protocolo #4 : Relacionado a preços
 # e que calcule o valor a ser pago por esse livro.
 
 def compraritens():
-    indicecompra = 0
+    indicecompra = -1
     if not Biblioteca:
         print("A biblioteca está vazia.")
         return
@@ -154,23 +154,32 @@ def compraritens():
             f"Autor : {livro['Autor']} | "
             f"Ano : {livro['Ano de Publicação']} | "
             f"Preço : R${livro['Preço']:.2f} | "
-            f"Quantidade : {livro['Quantidade']}")
-        while True:
-            compliv = input("Gostaria de comprar algum/outro livro? 1 - Sim / 0 - Não : ")
+            f"Quantidade : {livro['exemplares']}")
+        
+    while True:
+            compliv = int(input("Gostaria de comprar algum/outro livro? 1 - Sim / 0 - Não : "))
             if compliv == 1:
                 seleclivro = int(input("Insira o Código do livro que você vai comprar : "))
                 for i, sublist in enumerate(Biblioteca):
-                    if sublist[0] == seleclivro:
+                    if sublist["Código"] == seleclivro:
                         indicecompra = i
                         break
                     else:
                         print("Código não encontrado!")
-                confirmcomp = int(print(f"Você confirma a comprar do item {Biblioteca[indicecompra]}? 1 - Sim / 0 - Não"))
-                if confirmcomp == "1":
-                    Livroscomprados.append(Biblioteca[indicecompra])
-                    del Biblioteca[indicecompra]
-                else:
+                        indicecompra = -1
+                        break
+                if indicecompra == -1:
                     continue
+                else:
+                    livro = Biblioteca[indicecompra]
+                    confirmcomp = int(input(f"Você confirma a comprar do item {livro['Título']}? Exemplares em estoque : {livro['exemplares']} 1 - Sim / 0 - Não"))
+                    if confirmcomp == 1:
+                        Livroscomprados.append(Biblioteca[indicecompra])
+                        Biblioteca[indicecompra]["exemplares"] -= 1
+                        if Biblioteca[indicecompra]["exemplares"] == 0:
+                            del Biblioteca[indicecompra]
+                    else:
+                        continue
             else:
                 break
                         
@@ -178,10 +187,7 @@ def compraritens():
                     
 
 
-receberlivr()
-receberlivr()
-compraritens()
-
+# def menu 
 
 # array = [[1, "joao", "Hahah"],[2, "RAghhh", "Roxo"]]
 
